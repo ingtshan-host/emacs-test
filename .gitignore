@@ -1,0 +1,11 @@
+# First ignore all 
+*
+
+# Then whitelist
+## file
+!.gitignore
+!README.md
+!*.el
+## floder
+!etc/
+!example/
