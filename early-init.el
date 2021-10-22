@@ -12,16 +12,16 @@
 
 ;; 递归遍历加载路径
 (defun add-subdirs-to-load-path(dir)
-    "Recursive add directories to `load-path`."
-    (let ((default-directory (file-name-as-directory dir)))
-      (add-to-list 'load-path dir)
-      (normal-top-level-add-subdirs-to-load-path)))
+  "Recursive add directories to `load-path`."
+  (let ((default-directory (file-name-as-directory dir)))
+    (add-to-list 'load-path dir)
+    (normal-top-level-add-subdirs-to-load-path)))
 
 ;; load all file as library
-(add-subdirs-to-load-path "~/.emacs.d/etc/lisp") ;; main configuration
-(add-subdirs-to-load-path "~/.emacs.d/etc/module") ;; module configuration
-(add-subdirs-to-load-path "~/.emacs.d/etc/plug-in") ;; package setting
-(add-subdirs-to-load-path "~/.emacs.d/etc/site-lisp") ;; third-party
+(add-to-list 'load-path (expand-file-name "etc/lisp" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "etc/module" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "etc/plug-in" user-emacs-directory))
+(add-subdirs-to-load-path (expand-file-name "etc/site-lisp" user-emacs-directory))
 
 ;; stop emacs automatically editing .emacs
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

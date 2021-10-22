@@ -4,3 +4,4 @@
 (require 'init-wf)                ;; workflow
 (require 'init-ui)                ;;
 (require 'init-ns)                ;; build my noting sys
+(require 'init-dev)               ;;
