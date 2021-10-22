@@ -66,10 +66,10 @@
 ;;; MacOS
 
 ;; bind key to 'hyper and 'meta
-(cond (*is-mac*
-       ;; 绑定为 Comand 键 和 option 键
-       (setq mac-command-modifier 'hyper
-	     mac-option-modifier 'meta)))
+(progn/os
+ :macos
+ ;; 绑定为 Comand 键 和 option 键
+ ((setq mac-command-modifier 'hyper mac-option-modifier 'meta)))
 
 ;; what different between (kbd "H-v") and [(hyper v)] ?
 (global-set-key (kbd "H-a") #'mark-page)         ;; 全选

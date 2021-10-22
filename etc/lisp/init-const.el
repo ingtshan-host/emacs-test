@@ -4,13 +4,13 @@
 ;;
 ;;;;================================================================
 
-;;------------------------------------------------------------------
-;;; os
-;; system
-(defconst *is-mac* (string-equal system-type "darwin"))
-(defconst *is-linux* (string-equal system-type "gnu/linux"))
-(defconst *is-win* (string-equal system-type "windows-nt"))
+;; multi-os util
+(require 'util-os)
 
+;;------------------------------------------------------------------
+;;; user info
+(defconst/os *org-dir*
+  :macos "~/Org")
 
 ;;------------------------------------------------------------------
 ;;; url
