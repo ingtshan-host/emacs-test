@@ -82,3 +82,13 @@
     (switch-to-buffer (find-file-noselect file-path))
     (goto-line 4)
     (end-of-line)))
+
+;;;;==============================note==============================
+;; file path
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/File-Name-Components.html
+;; file-name
+;;;;================================================================
+
+(file-name-directory "lewis/foo")
+(file-name-nondirectory "/my/home/.emacs.el")
+(file-name-sans-extension "/my/home/.emacs.el")

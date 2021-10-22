@@ -5,7 +5,8 @@
 ## file
 !.gitignore
 !README.md
-!*.el
+!init.el
+!early-init.el
 ## floder
 !etc/
 !example/
