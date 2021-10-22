@@ -1,7 +1,12 @@
 ;;; load-company.el -*- lexical-binding: t -*-
 
 ;;;;==============================note==============================
-;;
+;;  Auto company
+;;  But snippet remain manual
+;;  M-/ to call yas company list
+;;  
+;;  So the principal of snippet
+;;  is short (2 word is best) and keep in mind
 ;;;;================================================================
 
 ;; `company'
@@ -44,8 +49,8 @@
 (leaf yasnippet
   :diminish (yas-minor-mode)
   :hook (after-init-hook . yas-global-mode)
-  :bind ("C-c y" . yas-visit-snippet-file)
-  :config (leaf yasnippet-snippets))
+  :config
+  (leaf yasnippet-snippets))
 ;;------------------------------------------------------------------
 ;;; load-company.el ends
 (provide 'load-company)
