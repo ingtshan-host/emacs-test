@@ -47,10 +47,6 @@
 
 (leaf dashboard
   :init
-  ;; 
-  (defconst homepage-url "https://github.com/ingtshan/novicemacs")
-  (defconst stars-url (concat homepage-url "/stargazers"))
-  (defconst issue-url (concat homepage-url "/issues/new"))
   ;; close welcom screen
   (setq inhibit-startup-screen t)
   ;; Format: "(icon title help action face prefix suffix)"
@@ -61,19 +57,19 @@
 	     "mark-github"
 	     :height 1.0 :v-adjust  0.0) "★")
        "GitHub" "Browse"
-       (lambda (&rest _) (browse-url homepage-url)))
+       (lambda (&rest _) (browse-url *novicemacs-url*)))
       (,(if (fboundp 'all-the-icons-octicon)
 	    (all-the-icons-octicon
 	     "heart"
 	     :height 1.1 :v-adjust  0.0) "♥")
        "Stars" "Show stars"
-       (lambda (&rest _) (browse-url stars-url)))
+       (lambda (&rest _) (browse-url *novicemacs-stars-url*)))
       (,(if (fboundp 'all-the-icons-material)
 	    (all-the-icons-material
 	     "report_problem"
 	     :height 1.1 :v-adjust -0.2) "⚑")
        "Issue" "Report issue"
-       (lambda (&rest _) (browse-url issue-url)) warning)
+       (lambda (&rest _) (browse-url *novicemacs-issue-url*)) warning)
       (,(if (fboundp 'all-the-icons-material)
 	    (all-the-icons-material
 	     "update"
