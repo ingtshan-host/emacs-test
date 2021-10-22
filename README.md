@@ -19,7 +19,7 @@
 |-- lisp
 |   `-- init-xxx.el
 |-- module
-|   `-- xx/all.kinds.el
+|   `-- load-xxx.el
 |-- plug-in
 |   `-- use-xxx.el
 `-- site-lisp

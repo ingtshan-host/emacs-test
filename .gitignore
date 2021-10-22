@@ -1,12 +1,9 @@
-# First ignore all 
-*
+# OS file
 
-# Then whitelist
-## file
-!.gitignore
-!README.md
-!init.el
-!early-init.el
-## floder
-!etc/
-!example/
+# wmacs
+elpa
+custom.el
+
+# package work dir
+cnfonts
+straight

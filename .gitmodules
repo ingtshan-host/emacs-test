@@ -1,0 +1,3 @@
+[submodule "etc/site-lisp/vundo"]
+	path = etc/site-lisp/vundo
+	url = git@github.com:casouri/vundo.git
