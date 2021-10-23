@@ -16,17 +16,14 @@
   (set-charset-priority 'unicode))
 
 ;; 递归遍历加载路径
-(defun add-subdirs-to-load-path(dir)
-  "Recursive add directories to `load-path`."
-  (let ((default-directory (file-name-as-directory dir)))
-    (add-to-list 'load-path dir)
-    (normal-top-level-add-subdirs-to-load-path)))
-
-;; load all file as library
-(add-to-list 'load-path (expand-file-name "etc/lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "etc/module" user-emacs-directory))
-(add-subdirs-to-load-path
- (expand-file-name "etc/site-lisp" user-emacs-directory))
+(unless (boundp 'add-subdirs-to-load-path)
+  (defun add-subdirs-to-load-path(dir)
+    "Recursive add directories to `load-path`."
+    (let ((default-directory (file-name-as-directory dir)))
+      (add-to-list 'load-path dir)
+      (normal-top-level-add-subdirs-to-load-path))))
 
 ;; stop emacs automatically editing .emacs
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+;;; early-init.el ends here

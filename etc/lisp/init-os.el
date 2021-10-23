@@ -2,7 +2,6 @@
 
 ;;------------------------------------------------------------------
 ;;; 1. improve quit emacs
-;;; 2. improve undo
 
 (defun os/quit-emacs (&optional pfx)
   "quit emacs with confirm"
@@ -15,48 +14,11 @@
   (interactive "P")
   (let ((q nil))
     (condition-case ex
-	(delete-window) ('error (setq q t)))
+	    (delete-window) ('error (setq q t)))
     (if q (progn (setq q nil)
-		 (condition-case ex
-		     (delete-frame) ('error (setq q t)))
-		 (if q (ingt/quit-emacs pfx))))))
-
-;; use undo history of individual file buffers persistently
-(leaf undohist
-  :require t
-  :config
-  (setq undohist-ignored-files
-	'("\\.git/COMMIT_EDITMSG$"))
-  (undohist-initialize))
-
-;; for emacs 27 for vundo
-
-(unless (boundp 'undo--last-change-was-undo-p)
-  (defun undo--last-change-was-undo-p (undo-list)
-    (while (and (consp undo-list) (eq (car undo-list) nil))
-      (setq undo-list (cdr undo-list)))
-    (gethash undo-list undo-equiv-table))
-
-  (defun undo-redo (&optional arg)
-    "Undo the last ARG undos."
-    (interactive "*p")
-    (cond
-     ((not (undo--last-change-was-undo-p buffer-undo-list))
-      (user-error "No undo to undo"))
-     (t
-      (let* ((ul buffer-undo-list)
-             (new-ul
-              (let ((undo-in-progress t))
-                (while (and (consp ul) (eq (car ul) nil))
-                  (setq ul (cdr ul)))
-                (primitive-undo arg ul)))
-             (new-pul (undo--last-change-was-undo-p new-ul)))
-        (message "Redo%s" (if undo-in-region " in region" ""))
-        (setq this-command 'undo)
-        (setq pending-undo-list new-pul)
-        (setq buffer-undo-list new-ul))))))
-
-(require 'vundo)
+		         (condition-case ex
+		             (delete-frame) ('error (setq q t)))
+		         (if q (ingt/quit-emacs pfx))))))
 
 ;;------------------------------------------------------------------
 ;;; MacOS

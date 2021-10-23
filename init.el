@@ -1,14 +1,38 @@
+;;; init.el
 
 (defvar *dumped-init-path* nil
   "Not nil when dumped-init.")
 (defvar *do-dump* nil
   "Not nil when do-dump.")
 
+;; 拒绝 do-dump but init first whatever
+(unless *do-dump*
+  ;; important init and can't add to dump
+
+  ;; load rely file
+  (load-file
+   (expand-file-name "etc/lisp/sys-info.el" user-emacs-directory))
+
+  ;; init config
+  (require 'sys-info)               ; sys core info
+  
+  )
+
 ;; 拒绝 dump-init but do-dump
 (unless *dumped-init-path*
   ;; normal-init and add to dump
+
+  ;; load all rely files as library
+  (add-to-list
+   'load-path (expand-file-name "etc/lisp" user-emacs-directory))
+  (add-to-list
+   'load-path (expand-file-name "etc/module" user-emacs-directory))
+  (add-subdirs-to-load-path
+   (expand-file-name "etc/site-lisp" user-emacs-directory))
   
+  ;; init config
   (require 'init-pkg)               ; packages manage tool (use leaf)
+  (require 'all-util)               ; all pure function tool
   (require 'init-const)             ; control and info
   (require 'init-bas)               ; basic setting
   (require 'init-os)                ; OS adapt
@@ -20,6 +44,8 @@
 ;; 拒绝 normal-init
 (when *dumped-init-path*
   ;; dumped-init what is above
+  ;; load-path is void befor, now copy from dump
+  ;; then init
   (setq load-path *dumped-init-path*)
   (setq warning-minimum-level :emergency)
   (global-font-lock-mode t)
@@ -27,20 +53,16 @@
 
 ;; load after
 
-;; 拒绝 do-dump but init whatever
+;; 拒绝 do-dump but final init whatever
 (unless *do-dump*
-  ;; init remaining add not add to dump
+  ;; init remaining and can't add to dump
 
-  ;; gui/console
-  ;; put here becaus in dumper can't get right info
-  (defconst *is-app* (and (display-graphic-p) (not (daemonp))))
-  (defconst *is-server-m* (string-equal "main" (daemonp)))
-  (defconst *is-server-c* (string-equal "coding" (daemonp)))
-  (defconst *is-server-t* (string-equal "tty" (daemonp)))
-  (defconst *is-gui*  (or *is-app* *is-server-m* *is-server-c*))
-  (defconst *is-cli* (or (not *is-gui*) *is-server-t*))
-  
+  ;; load-path is right set
+  ;; so init directly
+
   (when *is-gui*
-    (require 'init-ui)                 ; pretty face and smart interactive
-    
+    ;; gui only
+    (require 'init-ui)                 ; pretty face and smart interactiveac
     ))
+
+;;; init.el ends here

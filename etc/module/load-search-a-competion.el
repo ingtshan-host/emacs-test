@@ -1,4 +1,4 @@
-;;; load-search-and-command-competion.el -*- lexical-binding: t -*-
+;;; load-search-a-competion.el -*- lexical-binding: t -*-
 
 ;;;;==============================note==============================
 ;;  #扩展 minibuffer 的 completion
@@ -27,7 +27,7 @@
 (leaf vertico
   :leaf-defer 0
   :bind (("C-c v" . vertico-repeat)
-	 (:vertico-map
+	     (:vertico-map
           ("M-RET" . minibuffer-force-complete-and-exit)))
   :custom
   (vertico-cycle . t)
@@ -196,5 +196,5 @@
   (corfu-echo-documentation . t))
 
 ;;------------------------------------------------------------------
-;;; load-search-and-command-competion ends
-(provide 'load-search-and-command-competion)
+;;; load-search-a-competion ends
+(provide 'load-search-a-competion)

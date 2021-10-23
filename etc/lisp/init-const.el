@@ -1,46 +1,28 @@
 ;;; init-const.el -*- lexical-binding: t -*-
 
-;;;;==============================note==============================
-;; #字体
-;; 简体中文等距更纱黑体+Nerd图标字体库
-;; https://github.com/laishulu/Sarasa-Mono-SC-Nerd
-;; 
-;; Free variable writing fonts from iA
-;; https://github.com/iaolo/iA-Fonts
-;;
-;; JetBrains Mono 是JetBrains专门为程序员出的一套西语字体(不支持中文)
-;; https://www.jetbrains.com/lp/mono/
-;;;;================================================================
-
-;; multi-os util
-(require 'all-util)
-
-;;------------------------------------------------------------------
-;;; ui
-
+(require 'sys-info)
+;;;;-----------------------------README-----------------------------
+;;  font
 (defconst/os *font-size-int*
   :macos 15)
 (defconst/os *en-font-name*
-  :macos "JetBrains Mono")
+  :macos "JetBrains Mono" ; JetBrains Mono 为程序员出的一套西语字体(不支持中文)
+  )
 (defconst/os *zh-font-name*
-  :macos "Sarasa Mono SC Nerd")
-
-;;------------------------------------------------------------------
-;;; user dir info
+  :macos "Sarasa Mono SC Nerd" ; 简体中文等距更纱黑体+Nerd图标字体库
+  )
+;;;;-----------------------------README-----------------------------
+;;  all kinds of dir path and url
 (defconst/os *org-dir*
   :macos "~/Org")
 
-;;------------------------------------------------------------------
-;;; editor setup
-(defconst/os *org-latex-scale*
-  :macos 1.0)
-
-;;------------------------------------------------------------------
-;;; url
 (defconst *Novicemacs-url* "https://github.com/ingtshan/novicemacs")
 (defconst *novicemacs-stars-url* (concat *Novicemacs-url* "/stargazers"))
 (defconst *novicemacs-issue-url* (concat *Novicemacs-url* "/issues/new"))
-
-;;------------------------------------------------------------------
+;;;;-----------------------------README-----------------------------
+;;  editor detail setup
+(defconst/os *org-latex-scale*
+  :macos 1.0)
+;;;;-------------------------------END------------------------------
 ;;; init-const.el ends
 (provide 'init-const)
