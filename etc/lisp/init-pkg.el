@@ -104,32 +104,5 @@
 (leaf use-package)
 
 ;;------------------------------------------------------------------
-;;; improve leaf-convert
-
-(defun pkg/replace-string (what with in)
-  "basic string replace"
-  (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
-
-(defun pkg/break-line-string (symbol)
-  "break line with sign : and ("
-  (pkg/replace-string ;; no single (
-   "\n(\n" "("
-   (pkg/replace-string ;; break at :
-    ":" "\n:"
-    (pkg/replace-string ;; break at (
-     "(" "\n(" (format "%s" symbol)))))
-
-(defmacro pkg/convert (&rest args)
-  "leaf-convert then inserat after"
-  `(insert (pkg/break-line-string (leaf-convert ,@args))))
-
-;; enable aggressive-indent in lisp mode
-
-(leaf aggressive-indent
-  :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)))
-
-;; (require 'use-format-all)
-
-;;------------------------------------------------------------------
 ;;; init-pkg.el ends
 (provide 'init-pkg)

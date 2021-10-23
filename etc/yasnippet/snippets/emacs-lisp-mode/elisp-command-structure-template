@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: elisp-command-structure-template
+# key: ec
+# --
+;;; ${1:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`}
+
+$0
+
+;;------------------------------------------------------------------
+;;; ${2:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`} ends
+;; (provide '${3:`(cond ((buffer-file-name) (file-name-base (buffer-file-name))) (t ""))`})

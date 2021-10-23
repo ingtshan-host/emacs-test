@@ -7,3 +7,5 @@ custom.el
 
 # package work dir
 var
+!var/dumper
+var/dumper/*.pdmp

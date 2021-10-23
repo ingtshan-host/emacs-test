@@ -4,6 +4,10 @@
 ;;  
 ;;;;================================================================
 
+(leaf elpa-mirror)
+
+;; M-x elpamr-create-mirror-for-installed
+
 ;;------------------------------------------------------------------
 ;;; use-elpa-mirror.el ends
 (provide 'use-elpa-mirror)

@@ -140,6 +140,10 @@
               ;; Permanently indent with spaces, never with TABs
               indent-tabs-mode nil)
 
+;; auto indent
+(leaf aggressive-indent
+  :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)))
+
 (setq visible-bell t
       inhibit-compacting-font-caches t  ; Don’t compact font caches during GC.
       delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder

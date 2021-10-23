@@ -24,7 +24,7 @@
   (org-src-tab-acts-natively . t)
   ;; latex in org
   (org-highlight-latex-and-related . '(native script entities))
-  (org-export-with-latex . t)
+  ;; (org-export-with-latex . t)
   ;; literature programming
   (org-confirm-babel-evaluate . nil)
   (org-babel-load-languages . '((C . t)
