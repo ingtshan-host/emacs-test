@@ -1,6 +1,6 @@
 
-# A
-Copyright (c) 2021 ingtshan
+# Novicemacs
+[![License](https://img.shields.io/github/license/ingtshan/novicemacs)](License)
 
 这是我从零攒起来的 Emacs 配置，尽量结构化，即单个文件专注解决少量问题，同时代码里面尽可能多注释和笔记，故显得有点啰嗦。
 
