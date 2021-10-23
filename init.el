@@ -33,6 +33,7 @@
   ;; init remaining
   ;; but don't do-dump
   
-  (require 'init-ui)                 ; pretty face and smart interactive
-  
-  )
+  (when *is-gui*
+    (require 'init-ui)                 ; pretty face and smart interactive
+    
+    ))

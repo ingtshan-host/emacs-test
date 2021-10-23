@@ -15,6 +15,14 @@
 ;; multi-os util
 (require 'all-util)
 
+;; gui/console
+(defconst *is-app* (and (display-graphic-p) (not (daemonp))))
+(defconst *is-server-m* (string-equal "main" (daemonp)))
+(defconst *is-server-c* (string-equal "coding" (daemonp)))
+(defconst *is-server-t* (string-equal "tty" (daemonp)))
+(defconst *is-gui*  (or *is-app* *is-server-m* *is-server-c*))
+(defconst *is-cli* (or (not *is-gui*) *is-server-t*))
+
 ;;------------------------------------------------------------------
 ;;; ui
 

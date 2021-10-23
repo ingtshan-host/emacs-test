@@ -25,48 +25,57 @@
 
 (eval-and-compile
   ;; package-archives
+
   (customize-set-variable
-   'package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-		       ("org"   . "http://orgmode.org/elpa/")
-		       ("melpa-stable" . "https://stable.melpa.org/packages/")
-		       ("melpa" . "https://melpa.org/packages/")))
+   'package-archives
+   '(("melpa-stable" . "https://stable.melpa.org/packages/")
+     ("gnu"   . "https://elpa.gnu.org/packages/")
+	 ("org"   . "http://orgmode.org/elpa/")
+	 ("melpa" . "https://melpa.org/packages/")))
+
+  (add-to-list 'package-archives
+               `("elpa-mirror" .
+                 ,(expand-file-name "elpa-mirror/packages"
+                                    user-emacs-directory)))
   
   ;; initialize packages
   (unless (bound-and-true-p package--initialized) ; To avoid warnings in 27
     (package-initialize))
 
+  (when (not package-archive-contents)
+    (package-refresh-contents))
+
   ;; initialize straight
   (defvar bootstrap-version)
   (setq straight-vc-git-default-clone-depth 1
-	straight-check-for-modifications '(find-when-checking)
-	straight-use-package-by-default t
-	straight-recipes-gnu-elpa-use-mirror t)
+	    straight-check-for-modifications '(find-when-checking)
+	    straight-use-package-by-default t
+	    straight-recipes-gnu-elpa-use-mirror t)
 
   ;; loading bootstrap file
   (let ((bootstrap-file
-	 (expand-file-name
-	  "straight/repos/straight.el/bootstrap.el"
-	  user-emacs-directory))
-	(bootstrap-version 5))
+	     (expand-file-name
+	      "straight/repos/straight.el/bootstrap.el"
+	      user-emacs-directory))
+	    (bootstrap-version 5))
     
     (unless (file-exists-p bootstrap-file)
       (with-current-buffer
           (url-retrieve-synchronously
            "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
            'silent 'inhibit-cookies)
-	(goto-char (point-max))
-	(eval-print-last-sexp)))
+	    (goto-char (point-max))
+	    (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage)
     
     ;; make sure leaf is install
     (unless (package-installed-p 'leaf)
       (cond ((file-exists-p bootstrap-file) ;; install by straight
-	     (straight-use-package 'leaf)
-	     (straight-use-package 'leaf-keywords))
-	    (t ;; install tradition way
-	     (package-refresh-contents)
-	     (package-install 'leaf)
-	     (package-install 'leaf-keywords))))))
+	         (straight-use-package 'leaf)
+	         (straight-use-package 'leaf-keywords))
+	        (t ;; install tradition way
+	         (package-install 'leaf)
+	         (package-install 'leaf-keywords))))))
 
 (leaf leaf-keywords
   :config
@@ -102,6 +111,14 @@
 
 ;; for conver use-package paradigm to leaf
 (leaf use-package)
+
+(leaf async)
+
+;; Project for modernizing Emacs' Package Menu
+(leaf paradox 
+  :pre-setq ((paradox-github-token . t) 
+             (paradox-execute-asynchronously . t) 
+             (paradox-automatically-star . t)))
 
 ;;------------------------------------------------------------------
 ;;; init-pkg.el ends

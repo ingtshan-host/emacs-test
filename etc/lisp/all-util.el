@@ -22,6 +22,21 @@
   "leaf-convert then inserat after"
   `(insert (pkg/break-line-string (leaf-convert ,@args))))
 
+(defun pkg/upgrad-package-async ()
+  "package upgrad"
+  (interactive)
+  (let ((buf "*package upgrad process*"))
+	(make-process
+	 :name "pkg-upgrad"
+	 :buffer buf
+	 :command
+	 (list "emacs" "--batch" "-q" "--eval"
+		   (format
+            "(progn (load \"%s\") (load \"%s\") (require 'async) (require 'paradox) (paradox-enable) (paradox-upgrade-packages))"
+            (expand-file-name "early-init.el" user-emacs-directory)
+            (expand-file-name "init.el" user-emacs-directory))))
+	(display-buffer buf)))
+
 ;;;;-----------------------------README-----------------------------
 ;; /os, multi-os config tool
 
@@ -35,8 +50,8 @@
 ;; 值 1 对 1
 (cl-defmacro get-value/os (&key macos linux windows default)
   "Value depended on `system-type',
-each clause using a keyword, `:windows', `:macos', or `:linux',
-and an optional `:default' clause."
+  each clause using a keyword, `:windows', `:macos', or `:linux',
+  and an optional `:default' clause."
   `(cond (*is-mac* ,macos)
 	 (*is-linux* ,linux)
 	 (*is-win* ,windows)
@@ -110,7 +125,7 @@ and an optional `:default' clause."
   "create file from template"
   (with-temp-buffer
     (insert (format ";;; %s -*- lexical-binding: t -*-\n\n"
-		            (file-name-nondirectory file-path)))
+  (file-name-nondirectory file-path)))
     (insert ";;;;==============================note==============================\n")
     (insert ";;  \n")
     (insert ";;;;================================================================\n\n")
