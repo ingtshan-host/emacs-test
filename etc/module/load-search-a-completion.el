@@ -1,4 +1,4 @@
-;;; load-search-a-competion.el -*- lexical-binding: t -*-
+;;; load-search-a-completion.el -*- lexical-binding: t -*-
 
 ;;;;==============================note==============================
 ;;  #扩展 minibuffer 的 completion
@@ -196,5 +196,5 @@
   (corfu-echo-documentation . t))
 
 ;;------------------------------------------------------------------
-;;; load-search-a-competion ends
-(provide 'load-search-a-competion)
+;;; load-search-a-completion ends
+(provide 'load-search-a-completion)

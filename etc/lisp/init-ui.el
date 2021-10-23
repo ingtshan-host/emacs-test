@@ -117,7 +117,7 @@
 ;;------------------------------------------------------------------
 ;;; user-emacs interaction
 
-(require 'load-search-a-competion)
+(require 'load-search-a-completion)
 (require 'load-company)
 
 ;; kill minibuffer while unfocus
