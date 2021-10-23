@@ -2,11 +2,8 @@
 
 # wmacs
 elpa
+straight
 custom.el
-projectile-bookmarks.eld
-recentf
 
 # package work dir
-cnfonts/
-straight/
-undohist/
+var

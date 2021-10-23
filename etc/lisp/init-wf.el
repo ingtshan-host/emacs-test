@@ -33,7 +33,7 @@
     (if (file-exists-p file-path)
 	(error (format "file %s exits" file-path)))
     
-    (insert (format "(require '%s)                ;;"
+    (insert (format "(require '%s)                ;"
 		    (file-name-base file-path)))
     
     (wf/create-new-config file-path)

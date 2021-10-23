@@ -10,6 +10,11 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; encoding
+;; UTF-8 as the default coding system
+(when (fboundp 'set-charset-priority)
+  (set-charset-priority 'unicode))
+
 ;; 递归遍历加载路径
 (defun add-subdirs-to-load-path(dir)
   "Recursive add directories to `load-path`."
