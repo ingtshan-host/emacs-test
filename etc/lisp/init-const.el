@@ -1,16 +1,39 @@
 ;;; init-const.el -*- lexical-binding: t -*-
 
 ;;;;==============================note==============================
+;; #字体
+;; 简体中文等距更纱黑体+Nerd图标字体库
+;; https://github.com/laishulu/Sarasa-Mono-SC-Nerd
+;; 
+;; Free variable writing fonts from iA
+;; https://github.com/iaolo/iA-Fonts
 ;;
+;; JetBrains Mono 是JetBrains专门为程序员出的一套西语字体(不支持中文)
+;; https://www.jetbrains.com/lp/mono/
 ;;;;================================================================
 
 ;; multi-os util
 (require 'util-os)
 
 ;;------------------------------------------------------------------
-;;; user info
+;;; ui
+
+(defconst/os *font-size-int*
+  :macos 15)
+(defconst/os *en-font-name*
+  :macos "JetBrains Mono")
+(defconst/os *zh-font-name*
+  :macos "Sarasa Mono SC Nerd")
+
+;;------------------------------------------------------------------
+;;; user dir info
 (defconst/os *org-dir*
   :macos "~/Org")
+
+;;------------------------------------------------------------------
+;;; editor setup
+(defconst/os *org-latex-scale*
+  :macos 1.0)
 
 ;;------------------------------------------------------------------
 ;;; url

@@ -15,8 +15,32 @@
 
 ;;------------------------------------------------------------------
 ;;; user interface
+;; font and thems
 
-;; themes
+;;; font
+;; 若未设置英文字体
+(unless *en-font-name*
+  (when *zh-font-name*
+    (set-frame-font
+     (concat *zh-font-name* (format " %s" *font-size-int*))
+     nil t)))
+
+;; 设置中英文字体
+(when (and *en-font-name* *zh-font-name*)
+  (set-face-attribute
+   'default nil
+   :font (concat *en-font-name* (format " %s" *font-size-int*)))
+  (setq face-font-rescale-alist '((*en-font-name* . 1)))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font)
+		      charset
+		      (font-spec :family *en-font-name*))))
+
+;;; 解决中英混输表格对齐问题
+(leaf valign
+  :hook ((org-mode-hook . valign-mode)))
+
+;;; themes
 (leaf doom-themes 
   :require t 
   :config
@@ -98,7 +122,6 @@
 
 ;; kill minibuffer while unfocus
 (add-hook 'mouse-leave-buffer-hook 'ui/stop-using-minibuffer)
-
 ;;------------------------------------------------------------------
 ;;; init-ui ends
 (provide 'init-ui)
