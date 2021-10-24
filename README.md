@@ -1,10 +1,5 @@
-#+title: Novicemacs
-#+author: Naoya Yamashita
-#+date: <2021-10-24 Sun>
-#+exclude_tags: noexport
-
-* Novicemacs                                                       :noexport:
-[[https://github.com/ingtshan/novicemacs/blob/main/LICENSE][https://img.shields.io/github/license/ingtshan/novicemacs]]
+# Novicemacs                                                   
+[![image](https://img.shields.io/github/license/ingtshan/novicemacs)](https://github.com/ingtshan/novicemacs/blob/main/LICENSE)
 
 写在前面：
 
@@ -23,7 +18,7 @@
 2. ~etc/module~    ;集中一些复杂的配置 （降低一些 etc/lisp 的复杂度）
 3. ~etc/site-lisp~ ;存放一些包管理不好加载的第三方库（git submodule 或手动下载）
 
-#+begin_src
+```
 .emacs.d
 ├── early-init.el
 ├── init.el
@@ -47,7 +42,7 @@
 │   │   └── Emacs.pdmp
 │   └── ... (other data files)
 └── ...
-#+end_src
+```
 
 其中, ~inint.el~ 提供了一个使用 ~portable dumper~ 部分预加载的方式启动 Emacs 的
 配置手脚架。如果你经常退出重启 Emacs ，那么 portable dumper 可以将复杂配置降低到
@@ -57,22 +52,20 @@
 
 终端 ~--dump-file=path-to-your.pdmp~
 
-#+begin_src shell
+```shell
 emacs --dump-file=~.emacs.d/var/dumper/Emacs.pdmp
-#+end_src
+```
 
 GUI 我目前是手动替换软件包下的 ~Emacs.pdmp~
 
-** 最后：一点感想
+# 最后：一点感想
 
-#+begin_quote
-Emacs 是生活，Codes 是工作
-#+end_quote
+本项目中我写（或抄）配置 Emacs 的代码的目的，仅是打造一份趁手的工具。
 
-本项目中我写（或抄）配置 Emacs 的代码的目的，仅是打造一份趁手的工具。故而，这些
-代码和所耗费的精力，脱离我个人而言是没有 “产出价值” 的。而尽量成为活跃的 Emacser，
-积极参与社区互动，甚至编写通用插件，反而因为参与到解决大家（包括我自己）的问题而获得 “贡献价值”。
-同时，投入时间和精力丰富自己的编程技能，和学习更多 “实战意义” 的编程知识（如 算
-法，计算机考研408基础知识），甚至学习数学（抽象问题解决能力）都远比花费大量时间
-“蹲在地上玩 Emacs 玩具” 来得有用。但其实是，配置和使用 Emacs 过程中，提供了对
+故而，这些代码和所耗费的精力，脱离我个人而言是没有 “产出价值” 的。并且，投入时间和精力丰富自己的编程技能，和学习更多 “实战意义” 的编程知识（如 算
+法，计算机408基础知识），甚至学习数学（抽象问题解决能力）都远比花费大量时间
+“蹲在地上玩 Emacs 玩具” 来得有用。
+
+但其实是，配置和使用 Emacs 过程中，提供了对
 于熟悉的编程语言或大规模商用的技术下，对于同一个抽象问题的不同 理解角度/解决思路。
+同时，尽量成为活跃的 Emacser， 积极参与社区互动，甚至编写通用插件，反而因为参与到解决大家（包括我自己）的问题而获得 “贡献价值”。
