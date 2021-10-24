@@ -1,16 +1,23 @@
-* Novicemacs
+#+title: Novicemacs
+#+author: Naoya Yamashita
+#+date: <2021-10-24 Sun>
+#+exclude_tags: noexport
+
+* Novicemacs                                                       :noexport:
 [[https://github.com/ingtshan/novicemacs/blob/main/LICENSE][https://img.shields.io/github/license/ingtshan/novicemacs]]
 
-写在前面：这是我从零一点点攒起来的 Emacs 配置，我作为初学者的目标是尽量在单个文
+写在前面：
+
+这是我从零一点点攒起来的 Emacs 配置，我作为初学者的目标是尽量在单个文
 件内解决少量的问题，并保持清晰配置文件的结构，同时碍于我蹩脚的英语表达能力，注释和笔记中尽量使用中文（但文件函数变量名等还是代入英
 文逻辑）。
 
-介绍
+介绍:
 
 所有 Emacs 的 initial 配置代码都在 etc 文件夹下，并且再分为 ~lisp~, ~module~,
 ~site-lisp~ 。
 
-用这样冗余和功能重叠的结构的目的：
+配置文件结构和目的：
 
 1. ~etc/lisp~      ;主要解决 Emacs/elisp 的层次的问题并且作为各种功能实现的入口
 2. ~etc/module~    ;集中一些复杂的配置 （降低一些 etc/lisp 的复杂度）
@@ -46,7 +53,7 @@
 配置手脚架。如果你经常退出重启 Emacs ，那么 portable dumper 可以将复杂配置降低到
 秒开的程度，缺点就是配置有变动就要测试和重新生成预加载文件（Emacs.pdmp）。
 
-启动方式
+启动方式:
 
 终端 ~--dump-file=path-to-your.pdmp~
 
@@ -54,9 +61,7 @@
 emacs --dump-file=~.emacs.d/var/dumper/Emacs.pdmp
 #+end_src
 
-GUI
-
-我目前是手动替换软件包下的 ~Emacs.pdmp~
+GUI 我目前是手动替换软件包下的 ~Emacs.pdmp~
 
 ** 最后：一点感想
 

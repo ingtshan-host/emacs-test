@@ -1,9 +1,13 @@
 # OS file
 
-# wmacs
+# hid file
+.*
+
+# emacs
 elpa
 straight
 custom.el
+*.elc
 
 # package work dir
 var
