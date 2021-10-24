@@ -4,3 +4,6 @@
 [submodule "elpa-mirror"]
 	path = elpa-mirror
 	url = git@github.com:ingtshan/novicelpa.git
+[submodule "etc/site-lisp/notdeft"]
+	path = etc/site-lisp/notdeft
+	url = git@github.com:hasu/notdeft.git
