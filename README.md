@@ -3,14 +3,13 @@
 
 写在前面：
 
-这是我从零一点点攒起来的 Emacs 配置，我作为初学者的目标是尽量在单个文
-件内解决少量的问题，并保持清晰配置文件的结构，同时碍于我蹩脚的英语表达能力，注释和笔记中尽量使用中文（但文件函数变量名等还是代入英
-文逻辑）。
+这是我从零一点点攒起来的 Emacs 配置。
+
+作为初学者的目标是尽量在单个文件内解决少量的问题，并保持清晰配置文件的结构，同时碍于我蹩脚的英语表达能力，注释和笔记中基本使用中文（但文件函数变量名等还是代入英文逻辑）。
 
 介绍:
 
-所有 Emacs 的 initial 配置代码都在 etc 文件夹下，并且再分为 ~lisp~, ~module~,
-~site-lisp~ 。
+所有 Emacs 的 initial 配置代码都在 etc 文件夹下，并且再分为 `lisp`, `module`, `site-lisp`。
 
 配置文件结构和目的：
 
@@ -44,19 +43,20 @@
 └── ...
 ```
 
-其中, ~inint.el~ 提供了一个使用 ~portable dumper~ 部分预加载的方式启动 Emacs 的
-配置手脚架。如果你经常退出重启 Emacs ，那么 portable dumper 可以将复杂配置降低到
-秒开的程度，缺点就是配置有变动就要测试和重新生成预加载文件（Emacs.pdmp）。
+其中, `inint.el` 提供了一个使用 `portable dumper` 部分预加载的方式启动 Emacs 的
+配置手脚架。
 
-启动方式:
+如果你经常退出重启 Emacs ，那么 portable dumper 可以将复杂配置降低到秒开的程度，缺点就是配置有变动就要测试和重新生成预加载文件（Emacs.pdmp）。
 
-终端 ~--dump-file=path-to-your.pdmp~
+启动方式（兼容正常启动）:
+
+终端 `--dump-file=path-to-your.pdmp`
 
 ```shell
 emacs --dump-file=~.emacs.d/var/dumper/Emacs.pdmp
 ```
 
-GUI 我目前是手动替换软件包下的 ~Emacs.pdmp~
+GUI 我目前是手动替换软件包下的 `Emacs.pdmp`
 
 # 最后：一点感想
 
