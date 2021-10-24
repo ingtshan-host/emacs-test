@@ -13,9 +13,9 @@
 
 配置文件结构和目的：
 
-1. ~etc/lisp~      ;主要解决 Emacs/elisp 的层次的问题并且作为各种功能实现的入口
-2. ~etc/module~    ;集中一些复杂的配置 （降低一些 etc/lisp 的复杂度）
-3. ~etc/site-lisp~ ;存放一些包管理不好加载的第三方库（git submodule 或手动下载）
+1. `etc/lisp`      ;主要解决 Emacs/elisp 的层次的问题并且作为各种功能实现的入口
+2. `etc/module`    ;集中一些复杂的配置 （降低一些 etc/lisp 的复杂度）
+3. `etc/site-lisp` ;存放一些包管理不好加载的第三方库（git submodule 或手动下载）
 
 ```
 .emacs.d
