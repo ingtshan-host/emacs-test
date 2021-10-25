@@ -1,4 +1,4 @@
-;;; init.el
+;;; init.el -*- lexical-binding: t; no-byte-compile: t; -*-
 
 (defvar *dumped-init-path* nil
   "Not nil when dumped-init.")

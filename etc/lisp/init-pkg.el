@@ -1,6 +1,5 @@
-;;; init-pkg.el -*- lexical-binding: t -*-
+;;; init-pkg.el -*- lexical-binding: t; no-byte-compile: t; -*-
 
-;;;;==============================note==============================
 ;; straight.el
 ;; Install Emacs packages
 ;; listed on MELPA, GNU ELPA, or Emacsmirror, or provide your own recipes.
@@ -10,7 +9,6 @@
 ;;
 ;; leaf.el is yet another use-package.
 ;; leaf-keywords.el add additional keywords for leaf.el
-;;;;================================================================
 
 ;; optional proxy setup
 (setq url-proxy-services
@@ -80,7 +78,7 @@
 (leaf leaf-keywords
   :config
   ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
-  ;; (leaf hydra :ensure t)
+  (leaf hydra :ensure t)
   ;; (leaf el-get :ensure t)
   ;; (leaf blackout :ensure t)
   (leaf diminish :ensure t)
@@ -96,22 +94,18 @@
   :custom ((leaf-defaults . '(:ensure t :straight t))))
 ;; dot operator means add iterm to list
 
-;;;;==============================note==============================
 ;; Interactive side-bar feature for init.el using leaf.el.
 ;; usage M-x leaf-tree-mode
-;;
+(leaf leaf-tree)
+
 ;; Convert from a plain Elisp to an expression using a leaf.
 ;; usage (leaf-convert elisp-code)
-;;
-;; use-package support for convert
-;;;;================================================================
-
-(leaf leaf-tree)
 (leaf leaf-convert)
 
 ;; for conver use-package paradigm to leaf
 (leaf use-package)
 
+;; for paradox
 (leaf async)
 
 ;; Project for modernizing Emacs' Package Menu
@@ -120,6 +114,5 @@
              (paradox-execute-asynchronously . t) 
              (paradox-automatically-star . t)))
 
-;;------------------------------------------------------------------
-;;; init-pkg.el ends
 (provide 'init-pkg)
+;;; init-pkg.el ends here

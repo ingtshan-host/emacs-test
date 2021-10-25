@@ -1,11 +1,8 @@
-;;; init-ns.el -*- lexical-binding: t -*-
+;;; init-ns.el -*- lexical-binding: t; no-byte-compile: t; -*-
 
-;;;;==============================note==============================
-;;  noting system, ns for short
-;;;;================================================================
+;;;;-----------------------------README-----------------------------
+;; basic noting env
 
-;;------------------------------------------------------------------
-;;; basic env
 ;; cdlate org org-roam deft
 ;; (leaf cdlatex
 ;;   :after org
@@ -13,9 +10,9 @@
 ;;   :hook
 ;;   (org-mode-hook . turn-on-org-cdlatex))
 
-;; Org mode
 (leaf org
-  :require org-element
+
+  :require org-element org-tempo
   :custom
   (org-src-preserve-indentation . nil)
   (org-edit-src-content-indentation . 0)
@@ -36,7 +33,46 @@
   :config
   (with-eval-after-load 'org
     (setq org-format-latex-options
-          (plist-put org-format-latex-options :scale *org-latex-scale*))))
+          (plist-put org-format-latex-options :scale =org-latex-scale))))
+
+;; visually hid PROPERTIES in org
+;; re-defun org-cycle-hide-drawers
+(defun org-cycle-hide-drawers (state)
+  "Re-hide all drawers after a visibility state change."
+  (when (and (derived-mode-p 'org-mode)
+             (not (memq state '(overview folded contents))))
+    (save-excursion
+      (let* ((globalp (memq state '(contents all)))
+             (beg (if globalp
+                      (point-min)
+                    (point)))
+             (end (if globalp
+                      (point-max)
+                    (if (eq state 'children)
+                        (save-excursion
+                          (outline-next-heading)
+                          (point))
+                      (org-end-of-subtree t)))))
+        (goto-char beg)
+        (while (re-search-forward org-drawer-regexp end t)
+          (save-excursion
+            (beginning-of-line 1)
+            (when (looking-at org-drawer-regexp)
+              (let* ((start (1- (match-beginning 0)))
+                     (limit
+                      (save-excursion
+                        (outline-next-heading)
+                        (point)))
+                     (msg (format
+                           (concat
+                            "org-cycle-hide-drawers:  "
+                            "`:END:`"
+                            " line missing at position %s")
+                           (1+ start))))
+                (if (re-search-forward "^[ \t]*:END:" limit t)
+                    (outline-flag-region start (point-at-eol) t)
+                  (user-error msg))))))))))
+
 
 ;; (leaf literate-calc-mode
 ;;   :after org
@@ -47,25 +83,48 @@
   :bind ("H-i" . writeroom-mode)
   :custom (writeroom-maximize-window . nil))
 
-(leaf deft
-  :after org
-  :bind ("C-c 2" . deft)
-  :custom
-  (deft-directory . *org-dir*)
-  (deft-recursive . t)
-  (deft-default-extension . "org")
-  (deft-extensions . '("md" "org" "txt" "tex"))
-  :config
-  (unless (file-directory-p deft-directory)
-    (deft-setup)))
+;; (leaf deft
+;;   :after org
+;;   :bind ("C-c 2" . deft)
+;;   :custom
+;;   (deft-directory . =org-dir)
+;;   (deft-recursive . t)
+;;   (deft-default-extension . "org")
+;;   (deft-extensions . '("md" "org" "txt" "tex"))
+;;   :config
+;;   (unless (file-directory-p deft-directory)
+;;     (deft-setup)))
+;; move to notdeft
 
+;; notdeft-xapian install xapian in os
+;; follow https://github.com/hasu/notdeft to make program
+(leaf notdeft
+  :ensure nil
+  :straight nil
+  :config
+  (setq notdeft-extension "org")
+  (setq notdeft-secondary-extensions '("md" "org" "el"))
+  (setq notdeft-directories
+        `(,(file-truename =org-dir)
+          ;; because sometime note in comment
+          ;;,(expand-file-name "etc" user-emacs-directory)
+          ;;,(expand-file-name "example" user-emacs-directory)
+          ))
+  (setq notdeft-xapian-program =notdeft-xapian)
+  (setq notdeft-allow-org-property-drawers t)
+  ;; 支持中文搜索
+  (setenv "XAPIAN_CJK_NGRAM" "1")
+  :bind (("C-c 2" . notdeft)
+         (notdeft-mode-map
+          ("C-q" . notdeft-quit)
+          ("C-r" . notdeft-refresh))))
 
 ;; use undo history of individual file buffers persistently
 (leaf undohist
   :require t
   :config
   (setq undohist-ignored-files
-	'("\\.git/COMMIT_EDITMSG$"))
+	    '("\\.git/COMMIT_EDITMSG$"))
   (undohist-initialize))
 
 ;; for emacs 27 for vundo
@@ -95,7 +154,11 @@
         (setq buffer-undo-list new-ul))))))
 
 (require 'vundo)
+;;;;-----------------------------README-----------------------------
+;;  noting framework
+;; Roam
+(require 'load-org-roam)
 
-;;------------------------------------------------------------------
-;;; init-ns.el ends
+;;;;-------------------------------END------------------------------
 (provide 'init-ns)
+;;; init-ns.el ends here

@@ -1,6 +1,5 @@
-;;; load-search-a-completion.el -*- lexical-binding: t -*-
+;;; load-search-a-completion.el -*- lexical-binding: t; no-byte-compile: t; -*-
 
-;;;;==============================note==============================
 ;;  #扩展 minibuffer 的 completion
 ;;  (allows you to quickly select an item from a list of candidates)
 ;;  
@@ -21,7 +20,6 @@
 ;;  embark-act       ;; pop action menu base on current context
 ;;  embark-dwim      ;; do the default action
 ;;                   ;; like find the file of (require 'module)'s module
-;;;;================================================================
 
 ;; completion UI 
 (leaf vertico
@@ -195,6 +193,5 @@
   (corfu-auto . nil)
   (corfu-echo-documentation . t))
 
-;;------------------------------------------------------------------
-;;; load-search-a-completion ends
 (provide 'load-search-a-completion)
+;;; load-search-a-completion ends here

@@ -1,7 +1,7 @@
-;;; init-os.el -*- lexical-binding: t -*-
+;;; init-os.el -*- lexical-binding: t; no-byte-compile: t; -*-
 
-;;------------------------------------------------------------------
-;;; 1. improve quit emacs
+;;;;-----------------------------README-----------------------------
+;;  os/ tool fun
 
 (defun os/quit-emacs (&optional pfx)
   "quit emacs with confirm"
@@ -18,16 +18,15 @@
     (if q (progn (setq q nil)
 		         (condition-case ex
 		             (delete-frame) ('error (setq q t)))
-		         (if q (ingt/quit-emacs pfx))))))
+		         (if q (os/quit-emacs pfx))))))
 
-;;------------------------------------------------------------------
-;;; MacOS
-
+;;;;-----------------------------README-----------------------------
+;;  OS adapt
 ;; bind key to 'hyper and 'meta
-(progn/os
- :macos
- ;; 绑定为 Comand 键 和 option 键
- ((setq mac-command-modifier 'hyper mac-option-modifier 'meta)))
+
+(eval-with macOS
+  ;; 绑定为 Comand 键 和 option 键
+  (setq mac-command-modifier 'hyper mac-option-modifier 'meta))
 
 ;; what different between (kbd "H-v") and [(hyper v)] ?
 (global-set-key (kbd "H-a") #'mark-page)         ;; 全选
@@ -44,6 +43,6 @@
 
 ;; use shift to extend select
 (global-set-key (kbd "<S-down-mouse-1>") #'mouse-save-then-kill)
-;;------------------------------------------------------------------
-;;; init-os.el ends
+;;;;-------------------------------END------------------------------
 (provide 'init-os)
+;;; init-os.el ends here

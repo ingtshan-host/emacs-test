@@ -21,7 +21,7 @@
 (message "clean setup done")
 
 (dump-emacs-portable
- (expand-file-name "var/dumper/Emacs-init.pdmp" user-emacs-directory))
+ (expand-file-name "var/dumper/Emacs.pdmp" user-emacs-directory))
 
 (message "%s" *dumped-init-path*)
 

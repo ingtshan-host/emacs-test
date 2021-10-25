@@ -1,4 +1,4 @@
-;;; early-init.el
+;;; early-init.el -*- lexical-binding: t; no-byte-compile: t; -*-
 ;; This file is loaded before the package system and GUI is initialized
 
 ;; 版本检查

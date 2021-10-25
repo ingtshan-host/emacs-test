@@ -1,4 +1,4 @@
-;;; all-util.el -*- lexical-binding: t -*-
+;;; all-util.el -*- lexical-binding: t; no-byte-compile: t; -*-
 
 ;; all pure util function here
 
@@ -36,7 +36,7 @@
             (expand-file-name "init.el" user-emacs-directory))))
 	(display-buffer buf)))
 ;;;;-----------------------------README-----------------------------
-;;  /dum, dumper
+;;  /dmp, dumper
 
 (defun dmp/do-dump ()
   "Dump Emacs."
@@ -56,15 +56,13 @@
 (defun wf/create-new-config (file-path)
   "create file from template"
   (with-temp-buffer
-    (insert (format ";;; %s -*- lexical-binding: t -*-\n\n"
-  (file-name-nondirectory file-path)))
-    (insert ";;;;==============================note==============================\n")
-    (insert ";;  \n")
-    (insert ";;;;================================================================\n\n")
+    (insert (format
+             ";;; %s -*- lexical-binding: t; no-byte-compile: t; -*-\n\n"
+             (file-name-nondirectory file-path)))
     (insert
-     (format ";;------------------------------------------------------------------\n;;; %s ends\n(provide '%s)"
-	         (file-name-nondirectory file-path)
-	         (file-name-base file-path)))
+     (format "(provide '%s)\n;;; %s ends here"
+	         (file-name-base file-path)
+             (file-name-nondirectory file-path)))
     (write-file file-path)))
 
 (defun wf/new-config-file(prompt nameseed)
@@ -84,11 +82,9 @@
     (wf/create-new-config file-path)
     
     (switch-to-buffer (find-file-noselect file-path))
-    (goto-line 4)
-    (end-of-line)))
+    (goto-line 2)(end-of-line)))
 
 ;;; interactive function 
-
 (defun wf/new-init()
   "workflow of crating new init-lisp.el"
   (interactive)
@@ -98,13 +94,16 @@
 (defun wf/new-plug-in()
   "workflow of crating new use-plugin.el"
   (interactive)
-  (wf/new-config-file "new plug-in: use-" "etc/plug-in/use-%s.el"))
+  (wf/new-config-file "new plug-in: use-" "example/plug-in/use-%s.el")
+  (insert "\nnt\n")
+  (goto-line 3)(end-of-line))
 
 ;; wf of new plug-in
 (defun wf/new-module()
   "workflow of crating new load-module.el"
   (interactive)
   (wf/new-config-file "new module: load-" "etc/module/load-%s.el"))
+
 ;;;;-------------------------------END------------------------------
-;;; all-util.el ends
 (provide 'all-util)
+;;; all-util.el ends here
