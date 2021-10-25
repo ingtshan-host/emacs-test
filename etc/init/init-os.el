@@ -23,10 +23,7 @@
 ;;;;-----------------------------README-----------------------------
 ;;  OS adapt
 ;; bind key to 'hyper and 'meta
-
-(eval-with macOS
-  ;; 绑定为 Comand 键 和 option 键
-  (setq mac-command-modifier 'hyper mac-option-modifier 'meta))
+(funitcall +system-key-adapte)
 
 ;; what different between (kbd "H-v") and [(hyper v)] ?
 (global-set-key (kbd "H-a") #'mark-page)         ;; 全选

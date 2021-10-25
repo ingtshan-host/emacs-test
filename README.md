@@ -9,28 +9,30 @@
 
 介绍:
 
-所有 Emacs 的 initial 配置代码都在 etc 文件夹下，并且再分为 `lisp`, `module`, `site-lisp`。
+所有 Emacs 的 initial 配置代码都在 etc 文件夹下，并且再分为 `lisp`, `module`, `device` `site-lisp`。
 
 配置文件结构和目的：
 
-1. `etc/lisp`      ;主要解决 Emacs/elisp 的层次的问题并且作为各种功能实现的入口
-2. `etc/module`    ;集中一些复杂的配置 （降低一些 etc/lisp 的复杂度）
+1. `etc/init`      ;主要解决 Emacs/elisp 的层次的问题并且作为各种功能实现的入口
+2. `etc/module`    ;集中一些复杂的配置 （降低一些 etc/init 的复杂度）
 3. `etc/site-lisp` ;存放一些包管理不好加载的第三方库（git submodule 或手动下载）
-
+4. `etc/device`    ;针对不同设备和平台做自定义修改
 ```
 .emacs.d
 ├── early-init.el
 ├── init.el
 ├── etc
-│   ├── lisp
+│   ├── init
 │   │   ├── sys-info.el
 │   │   ├── all-util.el
-│   │   ├── do-dump.el
 │   │   └── init-xxx.el
 │   ├── module
 │   │   └── load-xxx.el
 │   ├── site-lisp
-│   │   │   └── notdeft
+│   │   └── notdeft
+│   ├── device
+│   │   ├── do-dump.el
+│   │   └── os-xxx.el
 │   └── ... (other package's config files, not .el)
 ├── example
 │   ├── plug-in

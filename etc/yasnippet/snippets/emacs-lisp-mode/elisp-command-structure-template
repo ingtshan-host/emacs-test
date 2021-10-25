@@ -2,10 +2,9 @@
 # name: elisp-command-structure-template
 # key: ec
 # --
-;;; ${1:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`}
+;;; ${1:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`} -*- lexical-binding: t; no-byte-compile: t; -*-
 
 $0
 
-;;------------------------------------------------------------------
-;;; ${2:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`} ends
+;;; ${2:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`} ends here
 ;; (provide '${3:`(cond ((buffer-file-name) (file-name-base (buffer-file-name))) (t ""))`})

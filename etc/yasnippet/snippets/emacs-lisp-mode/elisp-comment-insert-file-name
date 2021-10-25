@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: elisp-comment-insert-file-name
+# key: efs
+# --
+\"$0 in ${1:`(cond ((buffer-file-name) (file-name-nondirectory (buffer-file-name))) (t ""))`}\"
