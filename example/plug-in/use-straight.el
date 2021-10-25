@@ -1,5 +1,7 @@
-;;; regex test code
-
+;;; use-straight.el -*- lexical-binding: t -*-
 ;;;;==============================note==============================
-;; 易混淆：通配符 wildcards 和 正则表达式 Regular Expression，常简写为regex、regexp或RE
+;;  
 ;;;;================================================================
+
+(provide 'use-straight)
+;;; use-straight.el ends here

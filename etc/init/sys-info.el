@@ -81,23 +81,26 @@ Three candidates `macOS', `windows' and `linux'.")
   "macro of device adpat, generate code such as
 
 (unless (fboundp '+system-key-adapte)
-  (defun +system-key-adapte()
+  (defun +system-key-adapte(keep)
     ;; progn here
     ;; excute one time
-    (fmakunbound '+system-key-adapte)))
+    (unless keep)   
+      (fmakunbound '+system-key-adapte)))
 
 "
   `(unless (fboundp ',fun-name)
-     (defun ,fun-name (,arg-list)
+     (defun ,fun-name (keep ,@arg-list)
        ,@body
-       ;; excute one time
-       (fmakunbound ',fun-name))))
+       (unless keep
+         ;; excute one time
+         (fmakunbound ',fun-name)) t)))
 
-(defmacro funitcall (fun-name &rest argument)
+(defmacro callunit (fun-name &optional keep &rest argument)
   "macro of device adpat, generate code such as
 
-(and (fboundp '+system-key-adapte) (+system-key-adapte))"
-  `(and (fboundp ',fun-name) (,fun-name ,argument)))
+(and (fboundp '+system-key-adapte) (+system-key-adapte nil))"
+  (or keep (setq keep nil))
+  `(and (fboundp ',fun-name) (,fun-name ,keep ,@argument)))
 ;;;;-----------------------------README-----------------------------
 ;; emacs process typeq
 (defconst *is-app* (and (display-graphic-p) (not (daemonp))))

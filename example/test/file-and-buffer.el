@@ -1,3 +1,5 @@
+;;; file and buffer
+
 ;;;;==============================note==============================
 ;;; goole: file site:https://www.gnu.org/software/emacs/manual/
 ;;

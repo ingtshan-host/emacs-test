@@ -15,7 +15,9 @@
 ;;;;-----------------------------README-----------------------------
 ;;  function
 (defunit +system-key-adapte()
+  ;; set right command key of macOS
   (setq mac-command-modifier
         'hyper mac-option-modifier 'meta))
+
 ;;; os-macOS.el ends here
 (provide 'os-macOS)

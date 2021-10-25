@@ -19,11 +19,10 @@
 		         (condition-case ex
 		             (delete-frame) ('error (setq q t)))
 		         (if q (os/quit-emacs pfx))))))
-
 ;;;;-----------------------------README-----------------------------
 ;;  OS adapt
 ;; bind key to 'hyper and 'meta
-(funitcall +system-key-adapte)
+(callunit +system-key-adapte)
 
 ;; what different between (kbd "H-v") and [(hyper v)] ?
 (global-set-key (kbd "H-a") #'mark-page)         ;; 全选
