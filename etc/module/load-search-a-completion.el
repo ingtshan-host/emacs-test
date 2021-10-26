@@ -31,6 +31,19 @@
   (vertico-cycle . t)
   (vertico-resize . nil)
   :init (vertico-mode))
+;; posframes for vertico
+;; (leaf posframe)
+;; (leaf vertico-posframe
+;;   :require posframe
+;;   :straight (vertico-posframe :type git :host github
+;;                               :repo "tumashu/vertico-posframe")
+;;   :ensure nil
+;;   :config
+;;   (vertico-posframe-mode 1)
+;;   :custom
+;;   (vertico-posframe-poshandler
+;;    .
+;;    #'posframe-poshandler-p0.5p0-to-f0.5p1))
 
 ;; use the `orderless' completion style.
 (leaf orderless

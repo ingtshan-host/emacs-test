@@ -33,10 +33,6 @@
 		              charset
 		              (font-spec :family =en-font-name))))
 
-;;; 解决中英混输表格对齐问题
-(leaf valign
-  :hook ((org-mode-hook . valign-mode)))
-
 ;;; themes
 (leaf doom-themes 
   :require t 
@@ -138,6 +134,91 @@
          ("C-x 4 0" . switch-window-then-kill-buffer))
   :setq ((switch-window-shortcut-style . 'qwerty)
          (switch-window-multiple-frames . t)))
+;;;;-----------------------------README-----------------------------
+;;  Chinese
+;; 解决中英混输表格对齐问题
+(leaf valign
+  :hook ((org-mode-hook . valign-mode)))
+;; 中文输入法
+(leaf pyim
+  :config
+  (setq default-input-method "pyim")
+  ;; 金手指设置，可以将光标处的编码，比如：拼音字符串，转换为中文。
+  (global-set-key (kbd "H-j") 'pyim-convert-string-at-point)
+  ;; 按 "C-<return>" 将光标前的 regexp 转换为可以搜索中文的 regexp.
+  (define-key minibuffer-local-map (kbd "C-<return>") 'pyim-cregexp-convert-at-point)
+  ;; pyim 探针设置
+  ;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
+  ;; 我自己使用的中英文动态切换规则是：
+  ;; 1. 光标只有在注释里面时，才可以输入中文。
+  ;; 2. 光标前是汉字字符时，才能输入中文。
+  ;; 3. 使用 H-j 快捷键，强制将光标前的拼音字符串转换为中文。
+  (setq-default pyim-english-input-switch-functions
+                '(pyim-probe-dynamic-english
+                  ;;pyim-probe-isearch-mode
+                  pyim-probe-program-mode
+                  pyim-probe-org-structure-template))
+  (setq-default pyim-punctuation-half-width-functions
+                '(pyim-probe-punctuation-line-beginning
+                  pyim-probe-punctuation-after-punctuation))
+  ;; 我使用全拼
+  (pyim-default-scheme 'quanpin)
+  ;; 开启代码搜索中文功能（比如拼音，五笔码等）
+  ;; (pyim-isearch-mode 1)
+  ;; 设置选词框的绘制方式
+  (if (posframe-workable-p)
+      (setq pyim-page-tooltip 'posframe)
+    (setq pyim-page-tooltip 'popup))
+  ;; 显示5个候选词
+  (setq pyim-page-length 5))
+;; Basedict 词库
+(leaf pyim-basedict
+  :after pyim
+  :config
+  ;; 启用基本词库
+  (pyim-basedict-enable)
+  ;; 手动安装词库
+  ;; 词库文件的编码必须为 utf-8-unix
+  (setq
+   pyim-dicts
+   (list `(:name
+           "成语俗语"
+           :file ,(expand-file-name
+                   "var/pyim-dicts/pyim/chengyusuyu-guanfangtuijian.pyim"
+                   user-emacs-directory))
+         `(:name
+           "数学词汇大全"
+           :file ,(expand-file-name
+                   "var/pyim-dicts/pyim/shuxuecihuidaquan-guanfangtuijian.pyim"
+                   user-emacs-directory))
+         `(:name
+           "数学专用词汇"
+           :file ,(expand-file-name
+                   "var/pyim-dicts/pyim/shuxuezhuanyongcihui.pyim"
+                   user-emacs-directory))
+         `(:name
+           "心理学词汇大全"
+           :file ,(expand-file-name "var/pyim-dicts/pyim/xinlixuecihuidaquan-guanfangtuijian.pyim"
+                                    user-emacs-directory))
+         `(:name
+           "计算机词汇大全"
+           :file ,(expand-file-name "var/pyim-dicts/pyim/jisuanjicihuidaquan-guanfangtuijian.pyim"
+                                    user-emacs-directory))
+         `(:name
+           "开发大神专用词库"
+           :file ,(expand-file-name "var/pyim-dicts/pyim/kaifadashenzhuanyongciku-guanfangtuijian.pyim"
+                                    user-emacs-directory))))
+  ;; Emacs 启动时加载 pyim 词库
+  (add-hook 'emacs-startup-hook
+            (lambda () (pyim-restart-1 t))))
+
+;; https://emacs-china.org/t/straight-ivy-helm-selectrum/11523/81
+;; 对 orderless 增加拼音搜索功能
+;; need pyim support
+(defun eh-orderless-regexp (orig_func component)
+  (let ((result (funcall orig_func component)))
+    (pyim-cregexp-build result)))
+;; (advice-add 'orderless-regexp :around #'eh-orderless-regexp)
 ;;;;-------------------------------END------------------------------
 (provide 'init-ui)
 ;;; init-ui.el ends her

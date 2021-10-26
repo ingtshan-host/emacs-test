@@ -7,3 +7,9 @@
 [submodule "etc/site-lisp/notdeft"]
 	path = etc/site-lisp/notdeft
 	url = git@github.com:hasu/notdeft.git
+[submodule "var/pyim-dicts/tool/hz2py"]
+	path = var/pyim-dicts/tool/hz2py
+	url = git@github.com:ingtshan/hz2py.git
+[submodule "var/pyim-dicts/tool/scel2pyim"]
+	path = var/pyim-dicts/tool/scel2pyim
+	url = git@github.com:E-Neo/scel2pyim.git

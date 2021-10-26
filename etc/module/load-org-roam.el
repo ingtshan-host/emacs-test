@@ -10,7 +10,7 @@
            ("C-c rn" . org-roam-node-find)
            ("C-c ri" . org-roam-node-insert)
            ("C-c rc" . org-roam-capture)
-           ("C-c rj" . org-roam-dailies-capture-today))
+           ("C-c rj" . org-roam-dailies-goto-today))
     :init
     (setq
      org-roam-directory (file-truename =roam-dir)
