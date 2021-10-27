@@ -103,7 +103,20 @@
   "workflow of crating new load-module.el"
   (interactive)
   (wf/new-config-file "new module: load-" "etc/module/load-%s.el"))
+;;;;-----------------------------README-----------------------------
+;;  ei/ editor
 
+;; cursor 在 org 链接中任意位置时执行下面的函数就可以自动识别链接区域并剪切
+(defun ei/org-kill-link-at-point ()
+  (interactive)
+  (when (eq major-mode 'org-mode)
+    (let* ((context (org-element-context))
+           (type (org-element-type context))
+           (beg (org-element-property :begin context))
+           (end (org-element-property :end context)))
+      (when (eq type 'link)
+        (kill-region beg end)))))
+(define-key org-mode-map (kbd "C-c l") #'ei/org-kill-link-at-point)
 ;;;;-------------------------------END------------------------------
 (provide 'all-util)
 ;;; all-util.el ends here

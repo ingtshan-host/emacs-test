@@ -32,20 +32,35 @@
   (vertico-resize . nil)
   :init (vertico-mode))
 ;; posframes for vertico
-;; (leaf posframe)
-;; (leaf vertico-posframe
-;;   :require posframe
-;;   :straight (vertico-posframe :type git :host github
-;;                               :repo "tumashu/vertico-posframe")
-;;   :ensure nil
-;;   :config
-;;   (vertico-posframe-mode 1)
-;;   :custom
-;;   (vertico-posframe-poshandler
-;;    .
-;;    #'posframe-poshandler-p0.5p0-to-f0.5p1))
+(leaf posframe)
+(leaf vertico-posframe
+  :require posframe
+  :straight (vertico-posframe :type git :host github
+                              :repo "tumashu/vertico-posframe")
+  :ensure nil
+  :config
+  (vertico-posframe-mode 1)
+  :custom
+  (vertico-posframe-poshandler
+   .
+   #'posframe-poshandler-p0.5p0-to-f0.5p1
+   ;;#'posframe-poshandler-point-top-left-corner
+   )
+  (vertico-posframe-font . "Fira Code 12")
+  (vertico-posframe-parameters
+   .
+   ;;nil
+   '((foreground-color . "#f1fa8c")
+     (background-color . "gray15")
+     )
+   ))
 
-;; use the `orderless' completion style.
+(defface vertico-posframe-border
+  '((t (:inherit default :background "gray50")))
+  "Face used by the vertico-posframe's border."
+  :group 'vertico-posframe)
+
+;; Use the `orderless' completion style.
 (leaf orderless
   :custom
   (completion-styles . '(orderless)))

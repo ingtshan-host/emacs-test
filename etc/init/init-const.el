@@ -6,14 +6,14 @@
 ;;;;-----------------------------README-----------------------------
 ;;  font
 (defvar =font-size-int 11)
-(defvar =en-font-name "JetBrains Mono")
+(defvar =en-font-name "Fira Code")
 (defvar =zh-font-name "Sarasa Mono SC Nerd")
 ;;;;-----------------------------README-----------------------------
 ;;  all kinds of dir path and url
 (defvar =org-dir "~/org")
 (defvar =roam-dir (expand-file-name "roam-v2" =org-dir))
 ;; xapian for notdeft
-(defvar =notdeft-xapian "etc/site-lisp/notdeft/xapian/mac-nt-xa")
+(defvar =notdeft-xapian (expand-file-name "etc/site-lisp/notdeft/xapian/mac-nt-xa" user-emacs-directory))
 (defvar =nviem-url "https://github.com/ingtshan/novicemacs")
 (defvar =nviem-stars-url (concat =nviem-url "/stargazers"))
 (defvar =nviem-issue-url (concat =nviem-url "/issues/new"))

@@ -11,8 +11,8 @@
 ;;   (org-mode-hook . turn-on-org-cdlatex))
 
 (leaf org
-
-  :require org-element org-tempo
+  ;;  :require org-element
+  :require org-tempo
   :custom
   (org-src-preserve-indentation . nil)
   (org-edit-src-content-indentation . 0)
@@ -113,7 +113,7 @@
   (setq notdeft-xapian-program =notdeft-xapian)
   (setq notdeft-allow-org-property-drawers t)
   ;; 支持中文搜索
-  (setenv "XAPIAN_CJK_NGRAM" "1")
+  ;; (setenv "XAPIAN_CJK_NGRAM" "1")
   :bind (("C-c 2" . notdeft)
          (notdeft-mode-map
           ("C-q" . notdeft-quit)

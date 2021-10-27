@@ -13,3 +13,6 @@
 [submodule "var/pyim-dicts/tool/scel2pyim"]
 	path = var/pyim-dicts/tool/scel2pyim
 	url = git@github.com:E-Neo/scel2pyim.git
+[submodule "var/rime/liberime"]
+	path = var/rime/liberime
+	url = git@github.com:merrickluo/liberime.git

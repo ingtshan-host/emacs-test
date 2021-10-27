@@ -31,7 +31,7 @@
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
     (set-fontset-font (frame-parameter nil 'font)
 		              charset
-		              (font-spec :family =en-font-name))))
+		              (font-spec :family =zh-font-name))))
 
 ;;; themes
 (leaf doom-themes 
@@ -139,6 +139,34 @@
 ;; 解决中英混输表格对齐问题
 (leaf valign
   :hook ((org-mode-hook . valign-mode)))
+;; 手动安装词库
+;; 词库文件的编码必须为 utf-8-unix
+(let ((a "var/pyim-dicts/pyim/chengyusuyu-guanfangtuijian.pyim")
+      (b "var/pyim-dicts/pyim/shuxuecihuidaquan-guanfangtuijian.pyim")
+      (c "var/pyim-dicts/pyim/shuxuezhuanyongcihui.pyim")
+      (d "var/pyim-dicts/pyim/xinlixuecihuidaquan-guanfangtuijian.pyim")
+      (e "var/pyim-dicts/pyim/jisuanjicihuidaquan-guanfangtuijian.pyim")
+      (f "var/pyim-dicts/pyim/kaifadashenzhuanyongciku-guanfangtuijian.pyim"))
+  (setq
+   pyim-dicts
+   (list `(:name
+           "成语俗语"
+           :file ,(expand-file-name a user-emacs-directory))
+         `(:name
+           "数学词汇大全"
+           :file ,(expand-file-name b user-emacs-directory))
+         `(:name
+           "数学专用词汇"
+           :file ,(expand-file-name c user-emacs-directory))
+         `(:name
+           "心理学词汇大全"
+           :file ,(expand-file-name d user-emacs-directory))
+         `(:name
+           "计算机词汇大全"
+           :file ,(expand-file-name e user-emacs-directory))
+         `(:name
+           "开发大神专用词库"
+           :file ,(expand-file-name f user-emacs-directory)))))
 ;; 中文输入法
 (leaf pyim
   :config
@@ -157,7 +185,8 @@
                 '(pyim-probe-dynamic-english
                   ;;pyim-probe-isearch-mode
                   pyim-probe-program-mode
-                  pyim-probe-org-structure-template))
+                  pyim-probe-org-structure-template
+                  ))
   (setq-default pyim-punctuation-half-width-functions
                 '(pyim-probe-punctuation-line-beginning
                   pyim-probe-punctuation-after-punctuation))
@@ -170,48 +199,16 @@
       (setq pyim-page-tooltip 'posframe)
     (setq pyim-page-tooltip 'popup))
   ;; 显示5个候选词
-  (setq pyim-page-length 5))
-;; Basedict 词库
-(leaf pyim-basedict
-  :after pyim
-  :config
-  ;; 启用基本词库
-  (pyim-basedict-enable)
-  ;; 手动安装词库
-  ;; 词库文件的编码必须为 utf-8-unix
-  (setq
-   pyim-dicts
-   (list `(:name
-           "成语俗语"
-           :file ,(expand-file-name
-                   "var/pyim-dicts/pyim/chengyusuyu-guanfangtuijian.pyim"
-                   user-emacs-directory))
-         `(:name
-           "数学词汇大全"
-           :file ,(expand-file-name
-                   "var/pyim-dicts/pyim/shuxuecihuidaquan-guanfangtuijian.pyim"
-                   user-emacs-directory))
-         `(:name
-           "数学专用词汇"
-           :file ,(expand-file-name
-                   "var/pyim-dicts/pyim/shuxuezhuanyongcihui.pyim"
-                   user-emacs-directory))
-         `(:name
-           "心理学词汇大全"
-           :file ,(expand-file-name "var/pyim-dicts/pyim/xinlixuecihuidaquan-guanfangtuijian.pyim"
-                                    user-emacs-directory))
-         `(:name
-           "计算机词汇大全"
-           :file ,(expand-file-name "var/pyim-dicts/pyim/jisuanjicihuidaquan-guanfangtuijian.pyim"
-                                    user-emacs-directory))
-         `(:name
-           "开发大神专用词库"
-           :file ,(expand-file-name "var/pyim-dicts/pyim/kaifadashenzhuanyongciku-guanfangtuijian.pyim"
-                                    user-emacs-directory))))
-  ;; Emacs 启动时加载 pyim 词库
-  (add-hook 'emacs-startup-hook
-            (lambda () (pyim-restart-1 t))))
-
+  (setq pyim-page-length 5)
+  ;; Basedict 词库
+  (leaf pyim-basedict
+    :require pyim
+    :config
+    ;; 启用基本词库
+    (pyim-basedict-enable)))
+;; Emacs 启动时加载 pyim 词库
+(add-hook 'emacs-startup-hook
+          (lambda () (pyim-restart-1 t)))
 ;; https://emacs-china.org/t/straight-ivy-helm-selectrum/11523/81
 ;; 对 orderless 增加拼音搜索功能
 ;; need pyim support

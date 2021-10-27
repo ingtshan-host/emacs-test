@@ -4,11 +4,11 @@
 
 ;;;;-----------------------------README-----------------------------
 ;;  value
-(defvar =font-size-int 15
+(defvar =font-size-int 14
   "Load customize in device/os-macOS.el")
-(defvar =en-font-name "JetBrains Mono"
+(defvar =en-font-name "Fira Code"
   "Load customize in os-macOS.el")
-(defvar =zh-font-name "Sarasa Mono SC Nerd"
+(defvar =zh-font-name "Glow Sans SC"
   "Load customize in os-macOS.el")
 (defconst =test "ok"
   "Load customize in os-macOS.el")
