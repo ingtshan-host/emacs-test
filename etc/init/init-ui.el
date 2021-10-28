@@ -10,28 +10,103 @@
   (when (and (>= (recursion-depth) 1)
 	         (active-minibuffer-window))
     (abort-recursive-edit)))
+;;;;-----------------------------README-----------------------------
+;;  ui default set
 
+(setq fill-column 88)
+(global-visual-line-mode t)    ; visual-line-mode
+
+(leaf nlinum
+  :hook ((org-mode-hook . nlinum-mode)
+         (prog-mode-hook . nlinum-mode))
+  :config
+  ;; fix hl
+  (leaf nlinum-hl :require t)
+  (require 'nlinum-hl)
+  (setq nlinum-highlight-current-line t)
+  (defconst my-nlinum-format-function
+    (lambda (line width)
+      (let* ((is-current-line (= line nlinum--current-line))
+             (str (format nlinum-format line)))
+        ;; use -> as current line
+        ;; or change to any symbol you like
+        ;; here
+        ;; (and is-current-line (setq str "->"))
+        (when is-current-line
+          (let* ((ms "->")
+                 (el (- (length str) 2)))
+            (while (> el 0)
+              (setq ms (concat "-" ms))
+              (setq el (1- el)))
+            (setq str ms)))
+        (when (< (length str) width)
+          ;; Left pad to try and right-align the line-numbers.
+          (setq str (concat (make-string (- width (length str)) ?\ ) str)))
+        
+        (put-text-property 0 width 'face
+                           (if (and nlinum-highlight-current-line
+                                    is-current-line)
+                               'nlinum-current-line
+                             'linum)
+                           str)
+        str)))
+  ;;take effect
+  (setq nlinum-format-function my-nlinum-format-function))
 ;;;;-----------------------------README-----------------------------
 ;;  font and thems
-
 ;;; font
-;; 若未设置英文字体
-(unless =en-font-name
-  (when =zh-font-name
-    (set-frame-font
-     (concat =zh-font-name (format " %s" =font-size-int))
-     nil t)))
+;; (defunit +set-font (height en-font en-rescale zh-font zh-rescale)
+;;   ;; 若未设置英文字体，只启用中文字体
+;;   (unless en-font
+;;     (when zh-font
+;;       (set-face-attribute
+;;        'default nil
+;;        :font zh-font
+;;        :weight 'normal
+;;        :width 'normal
+;;        :height height)))
+;;   ;; 设置中英文字体
+;;   (when en-font
+;;     (set-face-attribute
+;;      'default nil
+;;      :font en-font
+;;      :weight 'normal
+;;      :width 'normal
+;;      :height height)
+;;     (when zh-font
+;;       (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;         (set-fontset-font (frame-parameter nil 'font)
+;; 		                  charset
+;; 		                  (font-spec :family zh-font)))
+;;       ;; (setq face-font-rescale-alist
+;;       ;;       (list `(,en-font . ,en-rescale)
+;;       ;;             `(,zh-font . ,zh-rescale)))
+;;       )))
+;; (fmakunbound '+set-font)
+;; (callunit +set-font t 160 =en-font-name 1.3 =zh-font-name 0.9)
+;; (leaf cnfonts)
 
-;; 设置中英文字体
-(when (and =en-font-name =zh-font-name)
+(defunit +set-fonts (en-font en-size zh-font rescale)
   (set-face-attribute
    'default nil
-   :font (concat =en-font-name (format " %s" =font-size-int)))
-  (setq face-font-rescale-alist '((=en-font-name . 1)))
+   :font (font-spec  :family en-font
+                     :weight 'normal
+                     :slant 'normal
+                     :size en-size
+                     ))
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font)
-		              charset
-		              (font-spec :family =zh-font-name))))
+    (set-fontset-font
+     (frame-parameter nil 'font)
+     charset
+     (font-spec :family zh-font
+                :weight 'normal
+                :slant 'normal
+                ;; :size zh-size 在这里设置会影响缩放
+                )))
+  (setq face-font-rescale-alist
+        (list `(,en-font . 1) `(,zh-font . ,rescale)))
+  )
+(callunit +set-fonts nil =en-font-name 16.5 =zh-font-name 1.1)
 
 ;;; themes
 (leaf doom-themes 

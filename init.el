@@ -77,4 +77,8 @@
     (require 'init-ui)                 ; pretty face and smart interactiveac
     ))
 
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;;; init.el ends here

@@ -3,7 +3,38 @@
 ;; all pure util function here
 
 ;;;;-----------------------------README-----------------------------
-;;  /pkg package
+;;  os/ os action
+(defun os/quit-emacs (&optional pfx)
+  "quit emacs with need-test check"
+  (interactive "P")
+  (save-some-buffers)
+  (cond ((or nil
+             (and *need-test*
+                  (y-or-n-p "Seems Your init configs need test, do it?")))
+         (wf/int-test-gui))
+        (t (os/do-kill-9))))
+
+(defun os/do-kill-9 (&optional pfx)
+  "quit emacs with confirm"
+  (when (or pfx (y-or-n-p "Quit emacs now?"))
+    (save-buffers-kill-terminal)))
+
+(defun os/close-frame (&optional pfx)
+  "close emacs frame"
+  (interactive "P")
+  (let ((q nil))
+    (condition-case ex
+	    (delete-window) ('error (setq q t)))
+    (if q (progn (setq q nil)
+		         (condition-case ex
+		             (delete-frame) ('error (setq q t)))
+		         (if q (os/quit-emacs pfx))))))
+(defun os/fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen
+                       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
+;;;;-----------------------------README-----------------------------
+;;  pkg/ package
 (defun pkg/replace-string (what with in)
   "basic string replace"
   (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
@@ -36,7 +67,7 @@
             (expand-file-name "init.el" user-emacs-directory))))
 	(display-buffer buf)))
 ;;;;-----------------------------README-----------------------------
-;;  /dmp, dumper
+;;  dmp/, dumper
 
 (defun dmp/do-dump ()
   "Dump Emacs."
@@ -50,7 +81,7 @@
 		   (expand-file-name "etc/lisp/do-dump.el" user-emacs-directory )))
 	(display-buffer buf)))
 ;;;;-----------------------------README-----------------------------
-;; /wf, workflow
+;; wf/, workflow
 
 ;; wf of generate template el file
 (defun wf/create-new-config (file-path)
@@ -103,9 +134,45 @@
   "workflow of crating new load-module.el"
   (interactive)
   (wf/new-config-file "new module: load-" "etc/module/load-%s.el"))
+
+;; wf of config test
+(defun wf/int-test-gui ()
+  "Dump Emacs."
+  (interactive)
+  (save-some-buffers)
+  (let ((buf "*init gui test process*")
+        (timer 0))
+	(make-process
+	 :name "init-test"
+	 :buffer buf
+	 :command
+	 (list "emacs" "--batch"
+           "-l" (expand-file-name
+                 "etc/device/do-init-test.el" user-emacs-directory)))
+    (display-buffer buf))
+  (setq *need-test* nil))
+
+;; wf of remind me to test
+(defun wf/update-need-test ()
+  (and (or (;;use regex to math file you want to check
+            string-match-p
+            (expand-file-name
+             (concat user-emacs-directory "etc/.*/*.el$" ))
+            (buffer-file-name))
+           
+           (;;use regex to math file you want to check
+            string-match-p
+            (expand-file-name
+             (concat user-emacs-directory "*init.el$" ))
+            (buffer-file-name)))
+       (defconst *need-test* t)))
+  (with-eval-after-load 'elisp-mode
+    (add-hook 'emacs-lisp-mode-hook
+              (lambda () 
+                (add-hook
+                 'after-save-hook 'wf/update-need-test nil 'make-it-local))))
 ;;;;-----------------------------README-----------------------------
 ;;  ei/ editor
-
 ;; cursor 在 org 链接中任意位置时执行下面的函数就可以自动识别链接区域并剪切
 (defun ei/org-kill-link-at-point ()
   (interactive)
@@ -116,7 +183,6 @@
            (end (org-element-property :end context)))
       (when (eq type 'link)
         (kill-region beg end)))))
-(define-key org-mode-map (kbd "C-c l") #'ei/org-kill-link-at-point)
 ;;;;-------------------------------END------------------------------
 (provide 'all-util)
 ;;; all-util.el ends here

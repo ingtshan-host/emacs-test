@@ -46,14 +46,22 @@
    #'posframe-poshandler-p0.5p0-to-f0.5p1
    ;;#'posframe-poshandler-point-top-left-corner
    )
-  (vertico-posframe-font . "Fira Code 12")
+  (vertico-posframe-font .
+                         "Sarasa Mono SC Nerd 15"
+                         ;;"Inconsolata"
+                         )
   (vertico-posframe-parameters
    .
    ;;nil
-   '((foreground-color . "#f1fa8c")
-     (background-color . "gray15")
+   ;;背景RGB (51,62,80)#BDC0C5，前景(189,192,197)#333E50
+   '((foreground-color . "#BDC0C5")
+     (background-color . "#333E50")
      )
    ))
+;; fonst of minibuffer
+(custom-set-faces
+ '(Info-quoted ((t (:family "Sarasa Mono SC Nerd"))))
+ '(minibuffer-prompt ((t (:family "Sarasa Mono SC Nerd")))))
 
 (defface vertico-posframe-border
   '((t (:inherit default :background "gray50")))

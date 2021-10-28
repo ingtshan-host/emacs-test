@@ -11,8 +11,9 @@
 ;;   (org-mode-hook . turn-on-org-cdlatex))
 
 (leaf org
-  ;;  :require org-element
-  :require org-tempo
+  :require org-element org-tempo
+  :bind ((org-mode-map 
+          ("C-c l" . ei/org-kill-link-at-point)))
   :custom
   (org-src-preserve-indentation . nil)
   (org-edit-src-content-indentation . 0)

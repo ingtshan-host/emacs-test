@@ -102,19 +102,22 @@ Three candidates `macOS', `windows' and `linux'.")
   (or keep (setq keep nil))
   `(and (fboundp ',fun-name) (,fun-name ,keep ,@argument)))
 ;;;;-----------------------------README-----------------------------
-;; emacs process typeq
+;; emacs process type
 (defconst *is-app* (and (display-graphic-p) (not (daemonp))))
 (defconst *is-server-m* (string-equal "main" (daemonp)))
 (defconst *is-server-c* (string-equal "coding" (daemonp)))
 (defconst *is-server-t* (string-equal "tty" (daemonp)))
-(defconst *is-gui*  (or *is-app* *is-server-m* *is-server-c*))
+(defvar *is-gui*  (or *is-app* *is-server-m* *is-server-c*)
+  "Config then control load module rely on GUI.
+If not set, default by current process type")
 (defconst *is-cli* (or (not *is-gui*) *is-server-t*))
 ;; versions
 (defconst *emacs/>=26p* (>= emacs-major-version 26) "Emacs is 26 or above.")
 (defconst *emacs/>=27p* (>= emacs-major-version 27) "Emacs is 27 or above.")
 ;;;;-----------------------------README-----------------------------
 ;;  env
-
+(defconst *need-test* nil
+  "Not nil if you make any change of .el file under .emacs.d/ect")
 ;;------------------------------------------------------------------
 ;;; sys-info.el ends
 (provide 'sys-info)
