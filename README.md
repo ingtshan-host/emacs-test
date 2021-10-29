@@ -1,5 +1,5 @@
-# Novicemacs                                                   
-[![image](https://img.shields.io/github/license/ingtshan/novicemacs)](https://github.com/ingtshan/novicemacs/blob/main/LICENSE)
+# Emacs Config
+[![image](https://img.shields.io/github/license/ingtshan/emacs-test)](https://github.com/ingtshan/emacs-test/blob/main/LICENSE)
 
 写在前面：
 
