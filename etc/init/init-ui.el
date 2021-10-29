@@ -187,9 +187,47 @@
 
 (require 'load-search-a-completion)
 (require 'load-company)
-
+;;; postframe setting
+(leaf posframe)
+;; posframes for vertico
+(leaf vertico-posframe
+  :straight (vertico-posframe :type git :host github
+                              :repo "tumashu/vertico-posframe")
+  :ensure nil
+  :config
+  (vertico-posframe-mode 1)
+  :custom
+  (vertico-posframe-poshandler
+   .
+   #'posframe-poshandler-p0.5p0-to-f0.5p1
+   ;;#'posframe-poshandler-point-top-left-corner
+   )
+  (vertico-posframe-font .
+                         "Sarasa Mono SC Nerd 15"
+                         ;;"Inconsolata"
+                         )
+  (vertico-posframe-parameters
+   .
+   ;;nil
+   ;;背景RGB (51,62,80)#BDC0C5，前景(189,192,197)#333E50
+   '((foreground-color . "#BDC0C5")
+     (background-color . "#333E50"))
+   ))
+(leaf which-key-posframe
+  :custom
+  (which-key-posframe-poshandler
+   .
+   ;;#'posframe-poshandler-frame-center
+   #'posframe-poshandler-p0.5p0-to-f0.5p1
+   )
+  (which-key-posframe-parameters
+   .
+   '((background-color . "#333E50")))
+  :config
+  (which-key-posframe-mode))
 ;; kill minibuffer while unfocus
 (add-hook 'mouse-leave-buffer-hook 'ui/stop-using-minibuffer)
+
 
 ;; better window switch
 (leaf switch-window
@@ -245,6 +283,11 @@
 ;; 中文输入法
 (leaf pyim
   :config
+  (defconst pyim-indicator-modeline-string (list " 拼  音 " " 英  文 ")
+    "`pyim-indicator-default' 使用的 modeline 字符串。
+这个变量的取值是一个list:
+    (中文输入时显示的字符串 英文输入时显示的字符串)。")
+  
   (setq default-input-method "pyim")
   ;; 金手指设置，可以将光标处的编码，比如：拼音字符串，转换为中文。
   (global-set-key (kbd "H-j") 'pyim-convert-string-at-point)

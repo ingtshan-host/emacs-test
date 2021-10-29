@@ -31,33 +31,6 @@
   (vertico-cycle . t)
   (vertico-resize . nil)
   :init (vertico-mode))
-;; posframes for vertico
-(leaf posframe)
-(leaf vertico-posframe
-  :require posframe
-  :straight (vertico-posframe :type git :host github
-                              :repo "tumashu/vertico-posframe")
-  :ensure nil
-  :config
-  (vertico-posframe-mode 1)
-  :custom
-  (vertico-posframe-poshandler
-   .
-   #'posframe-poshandler-p0.5p0-to-f0.5p1
-   ;;#'posframe-poshandler-point-top-left-corner
-   )
-  (vertico-posframe-font .
-                         "Sarasa Mono SC Nerd 15"
-                         ;;"Inconsolata"
-                         )
-  (vertico-posframe-parameters
-   .
-   ;;nil
-   ;;背景RGB (51,62,80)#BDC0C5，前景(189,192,197)#333E50
-   '((foreground-color . "#BDC0C5")
-     (background-color . "#333E50")
-     )
-   ))
 ;; fonst of minibuffer
 (custom-set-faces
  '(Info-quoted ((t (:family "Sarasa Mono SC Nerd"))))

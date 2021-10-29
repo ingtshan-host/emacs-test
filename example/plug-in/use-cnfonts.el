@@ -7,8 +7,49 @@
 ;;;;================================================================
 
 ;; install and enable
-(leaf cnfonts
-  :config (cnfonts-enable))
+(prog1 'cnfonts
+  (let
+      ((file
+        (leaf-this-file)))
+    (unless
+        (boundp 'leaf--paths)
+      (defvar leaf--paths nil))
+    (when file
+      (add-to-list 'leaf--paths
+                   (cons 'cnfonts file))))
+  (condition-case err
+      (progn
+        (unless
+            (package-installed-p 'cnfonts)
+          (unless
+              (assoc 'cnfonts package-archive-contents)
+            (package-refresh-contents))
+          (condition-case _err
+              (package-install 'cnfonts)
+            (error
+             (condition-case err
+                 (progn
+                   (package-refresh-contents)
+                   (package-install 'cnfonts))
+               (error
+                (display-warning 'leaf
+                                 (format "In `cnfonts' block, failed to :package of `cnfonts'.  Error msg: %s"
+                                         (error-message-string err))))))))
+        (straight-use-package 'cnfonts)
+        (cnfonts-enable))
+    (error
+     (display-warning 'leaf
+                      (format "Error in `cnfonts' block.  Error msg: %s"
+                              (error-message-string err))))))
+
+(unless
+    (fboundp 'test)
+  (defun test
+      (keep)
+    nil
+    (unless keep
+      (fmakunbound 'test))
+    t))
 
 ;; M-x cnfonts-ui to use
 

@@ -16,3 +16,14 @@
 [submodule "var/rime/liberime"]
 	path = var/rime/liberime
 	url = git@github.com:merrickluo/liberime.git
+[submodule "/Users/ingtshan/.emacs.d/site-lisp/emacs-application-framework"]
+	path = /Users/ingtshan/.emacs.d/site-lisp/emacs-application-framework
+	url = https://github.com/emacs-eaf/emacs-application-framework.git
+	branch = master
+[submodule "etc/site-lisp/eaf/emacs-application-framework"]
+	path = etc/site-lisp/eaf/emacs-application-framework
+	url = https://github.com/emacs-eaf/emacs-application-framework.git
+	branch = master
+[submodule "var/rime/librime"]
+	path = var/rime/librime
+	url = https://github.com/rime/librime.git

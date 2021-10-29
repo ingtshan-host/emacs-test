@@ -27,12 +27,25 @@
   (add-to-list
    'load-path
    (expand-file-name "etc/module" user-emacs-directory))
-  (add-subdirs-to-load-path
-   (expand-file-name "etc/site-lisp" user-emacs-directory))
+  (add-to-list
+   'load-path
+   (expand-file-name "etc/site-lisp/notdeft" user-emacs-directory))
+  (add-to-list
+   'load-path
+   (expand-file-name "etc/site-lisp/vundo" user-emacs-directory))
+  (add-to-list
+   'load-path
+   (expand-file-name "etc/site-lisp/single" user-emacs-directory))
+  (add-to-list
+   'load-path
+   (expand-file-name "var/rime/liberime" user-emacs-directory))
+  ;; (add-subdirs-to-load-path
+  ;;  (expand-file-name "etc/site-lisp" user-emacs-directory))
 
   ;; init config
   (require 'init-pkg)               ; packages manage tool (use leaf)
   (require 'all-util)               ; all pure function tool
+  (require 'init-evil)                ;
   ;; etc/device/                    ; control and info (device adapt)
   ;; load device file in order
   (let ((device-file
@@ -77,8 +90,8 @@
     (require 'init-ui)                 ; pretty face and smart interactiveac
     ))
 
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+;; (require 'server)
+;; (unless (server-running-p)
+;;   (server-start))
 
 ;;; init.el ends here

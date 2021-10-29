@@ -119,7 +119,7 @@
 (defun wf/new-init()
   "workflow of crating new init-lisp.el"
   (interactive)
-  (wf/new-config-file "new init-config: init-" "etc/lisp/init-%s.el"))
+  (wf/new-config-file "new init-config: init-" "etc/init/init-%s.el"))
 
 ;; wf of new plug-in
 (defun wf/new-plug-in()
